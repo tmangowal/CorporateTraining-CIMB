@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+// var sandwich = prompt('Harga sandwich')
+// var salad = prompt('Harga salad')
+// var burger = prompt('Harga burger')
+// var frenchFries = prompt('Harga french fries')
+
+// var totalHarga = (4*sandwich) + (5*salad) + (2*burger) + (7*frenchFries)
+
+
+
+
+
+
+// alert(totalHarga)
+
+// let input1 = parseInt(prompt('Input angka anda'))
+
+// if (input1 % 2 == 0) {
+//   alert(input1 + " adalah angka genap")
+// } else {
+//   alert(input1 + " adalah angka ganjil")
+// }
+
+// 1. User input nilai
+// 2. Nilai diproses menjadi grade :
+    // 90 - 100 -> A
+    // 80 - 89 -> B
+    // 70 - 79 -> C
+    // 60 - 69 -> D
+    // 59 - 0 -> F
+//  3. Tampilkan grade user!
+// contoh : 'Grade anda __'
+
+// var nilai = prompt('Masukkan nilai anda!')
+// var grade;
+
+// if(nilai >= 90){
+//     grade = 'A'
+// }else if(nilai >= 80){
+//     grade = 'B'
+// }else if(nilai >= 70){
+//     grade = 'C'
+// }else if(nilai >= 60){
+//     grade = 'D'
+// }else{
+//     grade = 'F'
+// }
+
+// alert('Grade anda ' + grade)
+
+// let input = prompt('Input angka')
+
+// if (input % 3 == 0 && input % 5 == 0) {
+//   alert('FizzBuzz')
+// } else if (input % 3 == 0) {
+//   alert('Fizz')
+// } else if (input % 5 == 0) {
+//   alert("Buzz")
+// } else {
+//   alert(input)
+// }
+
+
+
+
+
+// 1. Input berat badan (kg)
+// 2. Input tinggi badan (m)
+// 3. Proses IMT dengan rumus
+// 4. Tampilkan result
+
+
+// 40+ -> Obesitas
+// 30 - 39 -> BB Sangat Berlebih
+// 25 - 29 -> BB Berlebih
+// 18.5 - 24 -> BB Ideal
+// 18.5- -> BB Kurang
+
+
+
+
+
+
+
+
+
+var berat = parseFloat(prompt('Masukkan berat badan'))
+var tinggi = parseFloat(prompt('Masukkan tinggi!'))
+
+var IMT = berat / Math.pow(tinggi, 2)
+var hasil;
+
+if(IMT > 39.9){
+    hasil = 'Obesitas'
+}else if(IMT >= 30){
+    hasil = 'BB Sangat berlebih'
+}else if(IMT >= 25){
+    hasil = 'BB Berlebih'
+}else if(IMT >= 18.5){
+    hasil = 'BB Ideal'
+}else{
+    hasil = 'BB Kurang'
+}
+
+alert('IMT = ' + IMT + ', '+hasil)
+
+</script>
+</html>
