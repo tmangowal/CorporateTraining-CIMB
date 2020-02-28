@@ -1,9 +1,9 @@
 
 // 1. Function utk hapus huruf vocal
-// 2. Function hitung uang parkir
-// 3. Function ganjil genap 
-// 4. Function display angka terbesar 
-// 5. Function ngefilter string (hanya bisa integer)
+// 2. Function utk sort array string (A-Z dan Z-A)
+// 3. Function utk sort array integer (0-9 dan 9-0)
+// 4. Function display angka terbesar dalam array. (Gak boleh pake Math.max())
+// 5. Function ngefilter string (hanya bisa integer). (Output array isinya hanya bisa string)
 // 6. Function untuk hapus huruf awal dan akhir saja 
 
 // 1
