@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    let priceMangga = 10000;
+    let priceApel = 7000;    
+    let priceJeruk = 13000;
+    let priceLeci = 17000;
+
+    let stockMangga = 7;
+    let stockApel = 5;
+    let stockJeruk = 12;
+    let stockLeci = 4;
+
+    alert(
+      `Mangga Rp.${priceMangga}/pcs (${stockMangga} item dalam stock)
+Apel Rp.${priceApel}/pcs (${stockApel} item dalam stock)
+Jeruk Rp.${priceJeruk}/pcs (${stockJeruk} item dalam stock)
+Leci Rp.${priceLeci}/pcs (${stockLeci} item dalam stock)`
+    );
+
+    let itemMangga = prompt('Mau berapa Mangga?')
+    let itemApel = prompt('Mau berapa Apel?')
+    let itemJeruk = prompt('Mau berapa Jeruk?')
+    let itemLeci = prompt('Mau berapa Leci?')
+
+    if (itemMangga <= stockMangga && itemApel <= stockApel && itemJeruk <= stockJeruk && itemLeci <= stockLeci) {
+      let totalPrice = (itemMangga * priceMangga) + (itemApel * priceApel) + (itemJeruk * priceJeruk) + (itemLeci * priceLeci)
+
+      let paymentInput = prompt(`Total belanja anda adalah Rp.${totalPrice}`)
+
+      if(paymentInput < totalPrice) {
+        alert(`Uang anda kurang Rp.${totalPrice - paymentInput}`)
+      } else if (paymentInput > totalPrice) {
+        alert(`Kembalian anda Rp.${paymentInput - totalPrice}`)
+      } else if (paymentInput == totalPrice) {
+        alert('Terima kasih sudah membayar dengan uang pas')
+      }
+    } else {
+      alert('Mon maap anda ngaco')
+    }
+  </script>
+</html>

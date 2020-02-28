@@ -94,25 +94,32 @@
 
 
 
-var berat = parseFloat(prompt('Masukkan berat badan'))
-var tinggi = parseFloat(prompt('Masukkan tinggi!'))
+// var berat = parseFloat(prompt('Masukkan berat badan'))
+// var tinggi = parseFloat(prompt('Masukkan tinggi!'))
 
-var IMT = berat / Math.pow(tinggi, 2)
-var hasil;
+// var IMT = berat / Math.pow(tinggi, 2)
+// var hasil;
 
-if(IMT > 39.9){
-    hasil = 'Obesitas'
-}else if(IMT >= 30){
-    hasil = 'BB Sangat berlebih'
-}else if(IMT >= 25){
-    hasil = 'BB Berlebih'
-}else if(IMT >= 18.5){
-    hasil = 'BB Ideal'
-}else{
-    hasil = 'BB Kurang'
-}
+// if(IMT > 39.9){
+//     hasil = 'Obesitas'
+// }else if(IMT >= 30){
+//     hasil = 'BB Sangat berlebih'
+// }else if(IMT >= 25){
+//     hasil = 'BB Berlebih'
+// }else if(IMT >= 18.5){
+//     hasil = 'BB Ideal'
+// }else{
+//     hasil = 'BB Kurang'
+// }
 
-alert('IMT = ' + IMT + ', '+hasil)
+// alert('IMT = ' + IMT + ', '+hasil)
+
+let input = prompt('Input apapun')
+let counter = 100
+
+do {
+  alert(input)
+} while(counter < 5)
 
 </script>
 </html>

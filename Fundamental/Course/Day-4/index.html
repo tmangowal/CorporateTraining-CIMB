@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+
+  let arrItemNames = ['Jeruk', 'Mangga', 'Apel']
+  let arrPrice = [10000, 7000, 13000]
+  let arrStock = [10, 15, 5]
+  let arrInputs = [0, 0, 0]
+
+  let menu = '';
+
+  for (let i = 0; i < arrItemNames.length; i++) {
+    menu += `${arrItemNames[i]} Rp.${arrPrice[i]}/pcs (${arrStock[i]} items ready in stock) \n`
+  }
+
+  alert(menu)
+
+</script>
+</html>

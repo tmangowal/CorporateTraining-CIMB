@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    let priceMangga = 10000;
+    let priceApel = 7000;
+    let priceJeruk = 13000;
+    let priceLeci = 17000;
+
+    let stockMangga = 10;
+    let stockApel = 10;
+    let stockJeruk = 10;
+    let stockLeci = 10;
+
+    let itemMangga;
+    let itemApel;
+    let itemJeruk;
+    let itemLeci;
+
+    let totalPrice;
+    let paymentInput;
+
+    let isRepeat;
+
+    do {
+      alert(
+        `Mangga Rp.${priceMangga}/pcs (${stockMangga} item dalam stock)
+  Apel Rp.${priceApel}/pcs (${stockApel} item dalam stock)
+  Jeruk Rp.${priceJeruk}/pcs (${stockJeruk} item dalam stock)
+  Leci Rp.${priceLeci}/pcs (${stockLeci} item dalam stock)`
+      );
+
+      do {
+        itemMangga = prompt("Mau berapa Mangga?");
+
+        if (itemMangga <= stockMangga && itemMangga >= 0) {
+          isRepeat = false;
+        } else {
+          isRepeat = true;
+        }
+      } while (isRepeat);
+
+      do {
+        itemApel = prompt("Mau berapa Apel?");
+
+        if (itemApel <= stockApel && itemApel >= 0) {
+          isRepeat = false;
+        } else {
+          isRepeat = true;
+        }
+      } while (isRepeat);
+
+      do {
+        itemJeruk = prompt("Mau berapa Jeruk?");
+
+        if (itemJeruk <= stockJeruk && itemJeruk >= 0) {
+          isRepeat = false;
+        } else {
+          isRepeat = true;
+        }
+      } while (isRepeat);
+
+      do {
+        itemLeci = prompt("Mau berapa Leci?");
+
+        if (itemLeci <= stockLeci && itemLeci >= 0) {
+          isRepeat = false;
+        } else {
+          isRepeat = true;
+        }
+      } while (isRepeat);
+
+      totalPrice =
+        itemMangga * priceMangga +
+        itemApel * priceApel +
+        itemJeruk * priceJeruk +
+        itemLeci * priceLeci;
+
+      do {
+        paymentInput = prompt(`Total belanja anda adalah Rp.${totalPrice}`);
+
+        if (paymentInput < totalPrice) {
+          alert(`Uang anda kurang Rp.${totalPrice - paymentInput}`);
+          isRepeat = true;
+        } else if (paymentInput > totalPrice) {
+          alert(`Kembalian anda Rp.${paymentInput - totalPrice}`);
+          isRepeat = false;
+        } else if (paymentInput == totalPrice) {
+          alert("Terima kasih sudah membayar dengan uang pas");
+          isRepeat = false;
+        }
+      } while (isRepeat);
+
+      stockApel -= itemApel
+      stockJeruk -= itemJeruk
+      stockLeci -= itemLeci
+      stockMangga -= itemMangga
+
+      isRepeat = confirm('Belanja lagi?') // true or false 
+
+    } while (isRepeat);
+  </script>
+</html>

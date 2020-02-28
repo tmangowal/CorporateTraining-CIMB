@@ -17,4 +17,5 @@
 
 // console.log(15 % 4)
 
-console.log((3 < 5 || 5 < 3) && 7 > 9)
+// console.log((3 < 5 || 5 < 3) && 7 > 9)
+

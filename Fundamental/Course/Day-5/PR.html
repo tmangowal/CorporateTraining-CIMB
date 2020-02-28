@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+  let arrItemNames = ['Jeruk', 'Mangga', 'Apel']
+  let arrPrice = [10000, 7000, 13000]
+  let arrStock = [10, 10, 10]
+  let arrInputs = [0, 0, 0]
+  let inputUserMenu;
+  let inputUserMenuIndex;
+  let inputUserQty;
+  let isRepeat;
+  let totalPrice;
+  let userPayment;
+
+  let menu = ''
+
+  
+
+  do {
+
+    menu = ''
+
+    for (let i = 0; i < arrItemNames.length; i++) {
+      menu += `${i + 1}. ${arrItemNames[i]} IDR ${arrPrice[i]}/pcs (${arrStock[i]} items in stock)\n`
+    }
+
+    menu += `${arrItemNames.length + 1}. Checkout`
+
+    inputUserMenu = prompt(menu)
+    inputUserMenuIndex = inputUserMenu - 1
+  
+    if (inputUserMenu == arrItemNames.length + 1) {
+      totalPrice = 0
+
+      for (let i = 0; i < arrItemNames.length; i++) {
+        totalPrice += arrPrice[i] * arrInputs[i]
+      }
+
+      do {
+        userPayment = prompt(`Total belanjaan anda sebesar IDR ${totalPrice}`)
+  
+        if (userPayment > totalPrice) {
+          alert(`Kembalian anda IDR ${userPayment - totalPrice}`)
+          isRepeat = false
+        } else if (userPayment < totalPrice) {
+          alert(`Uang anda kurang IDR ${totalPrice - userPayment}`)
+          isRepeat = true
+        } else if (userPayment == totalPrice) {
+          alert('Terima kasih sudah membayar dengan uang pas')
+          isRepeat = false
+        }
+      } while(isRepeat)
+
+      for (let i = 0; i < arrInputs.length; i++) {
+        arrStock[i] -= arrInputs[i]
+        arrInputs[i] = 0
+      }
+      isRepeat = confirm('Belanja lagi gak?')
+
+    } else {
+      do {
+        inputUserQty = parseInt(prompt(`Mau beli berapa ${arrItemNames[inputUserMenuIndex]}?`))
+  
+        if (arrStock[inputUserMenuIndex] >= (inputUserQty + arrInputs[inputUserMenuIndex])) {
+          arrInputs[inputUserMenuIndex] += inputUserQty
+          isRepeat = false
+        } else {
+          alert(`Stock ${arrItemNames[inputUserMenuIndex]} tidak cukup`)
+          isRepeat = true
+        }
+  
+      } while(isRepeat)
+
+      isRepeat = true
+    }
+  } while(isRepeat)
+
+</script>
+</html>
