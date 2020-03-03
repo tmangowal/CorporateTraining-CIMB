@@ -42,7 +42,7 @@
 
     let menu = "";
 
-    function showMenu() {
+    function showMenu(isUser) {
       menu = "";
 
       for (let i = 0; i < arrItems.length; i++) {
@@ -51,8 +51,10 @@
         }/pcs (${arrItems[i].stock} items ready)\n`;
       }
 
-      menu += `${arrItems.length + 1}. Cart\n`;
-      menu += `${arrItems.length + 2}. Checkout\n`;
+      if (isUser) {
+        menu += `${arrItems.length + 1}. Cart\n`;
+        menu += `${arrItems.length + 2}. Checkout\n`;
+      }
 
       return menu;
     }
@@ -74,20 +76,31 @@
     }
 
     function calculateTotalPrice() {
-      totalPrice = 0;
-      for (let i = 0; i < arrItems.length; i++) {
-        totalPrice += arrItems[i].qty * arrItems[i].harga;
-      }
+      do {
+        totalPrice = 0;
+        for (let i = 0; i < arrItems.length; i++) {
+          totalPrice += arrItems[i].qty * arrItems[i].harga;
+        }
 
-      userPayment = prompt(`Total harga = ${totalPrice}`);
+        userPayment = prompt(`Total harga = ${totalPrice}`);
 
-      if (userPayment > totalPrice) {
-        alert(`Kembalian anda ${userPayment - totalPrice}`);
-      } else if (userPayment < totalPrice) {
-        alert(`Uang anda kurang ${totalPrice - userPayment}`);
-      } else if (userPayment == totalPrice) {
-        alert("Terima kasih sudah membayar dengan uang pas");
-      }
+        if (userPayment > totalPrice) {
+          alert(`Kembalian anda ${userPayment - totalPrice}`);
+          isRepeat = false;
+        } else if (userPayment < totalPrice) {
+          alert(`Uang anda kurang ${totalPrice - userPayment}`);
+          isRepeat = true;
+        } else if (userPayment == totalPrice) {
+          alert("Terima kasih sudah membayar dengan uang pas");
+          isRepeat = false;
+        }
+
+        if (!isRepeat) {
+          for (let i = 0; i < arrItems.length; i++) {
+            arrItems[i].stock -= arrItems[i].qty;
+          }
+        }
+      } while (isRepeat);
     }
 
     function addToCart(index) {
@@ -111,23 +124,36 @@
       };
     }
 
+    function deleteItem(index) {
+      index -= 1
+      let itemName
+      if (index < arrItems.length && index >= 0) {
+        itemName = arrItems[index].produk
+        arrItems.splice(index, 1)
+        alert(itemName + ' telah dihapus')
+      } else {
+        alert('Pilihan invalid')
+      }
+    }
+
     do {
       let inputMainMenu = prompt(`Login sebagai\n1. User\n2. Admin`);
 
       if (inputMainMenu == 1) {
         do {
           // User Menu
-          inputUserMenu = prompt(showMenu());
+          inputUserMenu = prompt(showMenu(true));
           inputUserMenuIndex = inputUserMenu - 1;
 
           if (inputUserMenu == arrItems.length + 1) {
             showCart();
           } else if (inputUserMenu == arrItems.length + 2) {
             calculateTotalPrice();
+            isRepeat = confirm("Belanja lagi ga?");
           } else if (inputUserMenu < arrItems.length + 1) {
             addToCart(inputUserMenuIndex);
+            isRepeat = true;
           }
-          isRepeat = confirm("Belanja lagi ga?");
         } while (isRepeat);
       } else if (inputMainMenu == 2) {
         do {
@@ -144,9 +170,13 @@
             arrItems.push(
               createNewItem(newItemName, newItemPrice, newItemStock)
             );
+            isRepeat = true
           } else if (inputAdminMenu == 2) {
+            let deleteItemIndex = prompt(showMenu(false));
+            deleteItem(deleteItemIndex);
+            isRepeat = true
           } else if (inputAdminMenu == 3) {
-            alert(showMenu());
+            alert(showMenu(false));
           } else if (inputAdminMenu == 4) {
             break;
           }
