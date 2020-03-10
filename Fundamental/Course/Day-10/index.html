@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    table, th, tr, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      text-align: center;
+    }
+  </style>
+  <center>
+    <table>
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Pekerjaan</th>
+          <th>Umur</th>
+          <th>Picture</th>
+        </tr>
+      </thead>
+      <tbody id="mainData">
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <td><input id="inputNama" type="text" placeholder="Input Nama"></td>
+          <td><input id="inputPekerjaan" type="text" placeholder="Input Pekerjaan"></td>
+          <td><input id="inputUmur" type="number" placeholder="Input Umur"></td>
+          <td><input id="inputPic" type="text" placeholder="Input Picture Link"></td>
+          <td><input id="submitBtn" type="button" value="Submit" onclick="addData()"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </center>
+  <script>
+    class Orang {
+      constructor(nama, pekerjaan, umur, pic){
+        this.nama = nama
+        this.pekerjaan = pekerjaan
+        this.umur = umur
+        this.pic = pic
+      }
+    }
+
+    let dataOrang = [
+      new Orang('Steve', 'CEO', 30, 'https://cdn4.iconfinder.com/data/icons/avatar-circle-1-1/72/91-512.png'),
+      new Orang('Mark', 'Marketing', 25, 'https://cdn4.iconfinder.com/data/icons/avatar-circle-1-1/72/91-512.png'),
+      new Orang('Bill', 'Accountant', 40, 'https://cdn4.iconfinder.com/data/icons/avatar-circle-1-1/72/91-512.png')
+    ]
+
+    const renderData = () => {
+      let hasil = ''
+      dataOrang.forEach(({ nama, pekerjaan, umur, pic}, index) => {
+        hasil += `
+          <tr>
+            <td>${nama}</td>
+            <td>${pekerjaan}</td>
+            <td>${umur}</td>
+            <td><img src=${pic} width="100px"></td>
+            <td><input onclick="deleteData(${index})" type="button" value="Delete"></td>
+          </tr>
+        `
+      })
+      document.getElementById("mainData").innerHTML = hasil
+    }
+
+    renderData()
+
+    const addData = () => {
+      let inputNama = document.getElementById("inputNama").value
+      let inputPekerjaan = document.getElementById('inputPekerjaan').value
+      let inputUmur = document.getElementById("inputUmur").value
+      let inputPic = document.getElementById('inputPic').value
+
+      let newData = new Orang(inputNama, inputPekerjaan, inputUmur, inputPic)
+
+      dataOrang.push(newData)
+      renderData()
+      alert('Data ditambah')
+    }
+
+    const deleteData = (deleteIndex) => {
+      dataOrang.splice(deleteIndex, 1)
+      renderData()
+    }
+
+
+  </script>
+</body>
+</html>
