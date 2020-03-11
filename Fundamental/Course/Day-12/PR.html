@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    table, th, tr, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      text-align: center;
+    }
+  </style>
+  <center>
+    <table>
+      <thead>
+        <tr>
+          <th onclick="sortData('nama')">Nama</th>
+          <th onclick="sortData('pekerjaan')">Pekerjaan</th>
+          <th onclick="sortData('umur')">Umur</th>
+          <th>Gender</th>
+          <th>Bio</th>
+          <th>Picture</th>
+        </tr>
+      </thead>
+      <tbody id="mainData">
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <td><input id="inputNama" type="text" placeholder="Input Nama"></td>
+          <td><input id="inputPekerjaan" type="text" placeholder="Input Pekerjaan"></td>
+          <td><input id="inputUmur" type="number" placeholder="Input Umur"></td>
+          <td>
+            <input value="Male" type="radio" name="gender" id="inputMale">M
+            <input value="Female" type="radio" name="gender" id="inputFemale">F
+          </td>
+          <td><textarea onkeyup="onChangeBioInput()" id="inputBio" cols="30" rows="10"></textarea></td>
+          <td><input id="inputPic" type="text" placeholder="Input Picture Link"></td>
+          <td><input id="submitBtn" type="button" value="Submit" onclick="addData()"></td>
+        </tr>
+      </tfoot>
+    </table>
+    <h3 id="formWarning"></h3>
+    <h3 id="emptyTable"></h3>
+    <h3 id="wordCount">asd</h3>
+  </center>
+  <script>
+    class Orang {
+      constructor(nama, pekerjaan, umur, pic, gender, bio){
+        this.nama = nama
+        this.pekerjaan = pekerjaan
+        this.umur = umur
+        this.pic = pic
+        this.gender = gender
+        this.bio = bio
+      }
+    }
+
+    let dataOrang = [
+      new Orang(
+        'Steve', 'CEO', 30, 'https://cdn4.iconfinder.com/data/icons/avatar-circle-1-1/72/91-512.png', 'Male', 'Biodata aku'),
+      new Orang(
+        'Mark', 'Marketing', 25, 'https://cdn4.iconfinder.com/data/icons/avatar-circle-1-1/72/91-512.png', 'Male', 'Biodata aku'),
+      new Orang(
+        'Bill', 'Accountant', 40, 'https://cdn4.iconfinder.com/data/icons/avatar-circle-1-1/72/91-512.png', 'Male', 'Biodata aku')
+    ]
+
+    const renderData = () => {
+      let hasil = ''
+      dataOrang.forEach(({ nama, pekerjaan, umur, pic, gender, bio}, index) => {
+        if (bio.length > 30) {
+          bio = bio.slice(0, 30) + '...'
+        }
+        hasil += `
+          <tr>
+            <td>${nama}</td>
+            <td>${pekerjaan}</td>
+            <td>${umur}</td>
+            <td>${gender}</td>
+            <td>${bio}</td>
+            <td><img src=${pic} width="100px"></td>
+            <td><input onclick="deleteData(${index})" type="button" value="Delete"></td>
+          </tr>
+        `
+      })
+      document.getElementById("mainData").innerHTML = hasil
+    }
+
+    renderData()
+
+    const addData = () => {
+      let inputNama = document.getElementById("inputNama").value
+      let inputPekerjaan = document.getElementById('inputPekerjaan').value
+      let inputUmur = document.getElementById("inputUmur").value
+      let inputPic = document.getElementById('inputPic').value
+      let inputBio = document.getElementById('inputBio').value
+      let inputGender
+
+      if (document.getElementById("inputMale").checked) {
+        inputGender = document.getElementById("inputMale").value
+      } else if (document.getElementById("inputFemale").checked) {
+        inputGender = document.getElementById("inputFemale").value
+      }
+
+      let newData = new Orang(inputNama, inputPekerjaan, inputUmur, inputPic, inputGender, inputBio)
+
+      if (inputNama && inputPekerjaan && inputUmur && inputPic && inputGender && inputBio) {
+        dataOrang.push(newData)
+        renderData()
+        alert('Data ditambah')
+
+        document.getElementById("emptyTable").innerHTML = ''
+        document.getElementById("formWarning").innerHTML = ''
+
+        inputNama = document.getElementById("inputNama").value = ''
+        inputPekerjaan = document.getElementById('inputPekerjaan').value = ''
+        inputUmur = document.getElementById("inputUmur").value = ''
+        inputPic = document.getElementById('inputPic').value = ''
+        inputBio = document.getElementById('inputBio').value = ''
+
+        onChangeBioInput()
+      } else {
+        document.getElementById("formWarning").innerHTML = 'Ada field kosong'
+      }
+    }
+
+    const deleteData = (deleteIndex) => {
+      dataOrang.splice(deleteIndex, 1)
+      renderData()
+
+      if(dataOrang.length === 0) {
+        document.getElementById("emptyTable").innerHTML = 'Data kosong!'
+      }
+    }
+
+    let switchSort = {
+      nama: 0,
+      pekerjaan: 0,
+      umur: 0
+    }
+
+    const sortData = (key) => {
+      const sortFnAZ = (a, b) => {
+        if (a[key] > b[key]) {
+          return 1
+        } else {
+          return -1
+        }
+        // return a < b ? -1 : 1
+      }
+
+      const sortFnZA = (a, b) => {
+        if (a[key] < b[key]) {
+          return 1
+        } else {
+          return -1
+        }
+        // return a < b ? -1 : 1
+      }
+
+      if (switchSort[key] % 2 === 0) {
+        switchSort[key]++
+        dataOrang.sort(sortFnAZ)
+      } else {
+        switchSort[key]--
+        dataOrang.sort(sortFnZA)
+      }
+
+      renderData()
+    }
+
+    const onChangeBioInput = () => {
+      let inputBio = document.getElementById("inputBio").value
+
+      document.getElementById("wordCount").innerHTML = `${inputBio.length} / 30`
+    }
+  </script>
+</body>
+</html>
