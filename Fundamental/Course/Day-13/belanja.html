@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    table, th, tr, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 12px;
+    }
+  </style>
+
+  <!-- Form filter product -->
+  <fieldset>
+    <legend>Filter</legend>
+    <p>Nama: <input type="text" id="filterNama"></p>
+    <p>Harga: <input type="number" id="filterHargaMin">-<input type="number" id="filterHargaMax"></p>
+    <p>
+      Category:
+      <select id="filterCategory">
+        <option value="Buah">Buah</option>
+        <option value="Elektronik">Elektronik</option>
+        <option value="Baju">Baju</option>
+      </select>
+    </p>
+  </fieldset>
+
+  <!-- Form Input Product -->
+  <fieldset>
+    <legend>Input Data</legend>
+    <table>
+      <tr>
+        <td><input type="text" placeholder="Nama" id="inputNama"></td>
+        <td><input type="number" placeholder="Harga" id="inputHarga"></td>
+        <td>
+          <select id="inputCategory">
+            <option value="Buah">Buah</option>
+            <option value="Elektronik">Elektronik</option>
+            <option value="Baju">Baju</option>
+          </select>
+        </td>
+        <td><input type="number" placeholder="Stock" id="inputStock"></td>
+      </tr>
+    </table>
+    <br>
+    <input type="button" value="Input" onclick="addProduct()">
+  </fieldset>
+
+  <!-- Product List Table -->
+  <fieldset>
+    <legend>Product List</legend>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Category</th>
+          <th>Nama</th>
+          <th>Harga</th>
+          <th>Stock</th>
+          <th>Buy</th>
+          <th colspan="2">Action</th>
+        </tr>
+      </thead>
+      <tbody id="productListTable">
+        <tr>
+          <td>12345</td>
+          <td>Elektronik</td>
+          <td>Samsoeng</td>
+          <td>13000</td>
+          <td>10</td>
+          <td><input type="button" value="Buy"></td>
+          <td><input type="button" value="Delete"></td>
+          <td><input type="button" value="Edit"></td>
+        </tr>
+      </tbody>
+    </table>
+  </fieldset>
+
+  <!-- Cart Table -->
+  <fieldset>
+    <legend>Cart</legend>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Category</th>
+          <th>Nama</th>
+          <th>Harga</th>
+          <th>Qty</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="cartTable">
+
+      </tbody>
+    </table>
+    <br>
+    <input type="button" value="Payment">
+  </fieldset>
+
+  <!-- Transaction details -->
+  <fieldset>
+    <legend>Payment</legend>
+    <h2>Transaction Details</h2>
+  </fieldset>
+</body>
+<script>
+  class Product {
+    constructor(id, nama, harga, category, stock) {
+      this.id = id
+      this.nama = nama
+      this.harga = harga
+      this.category = category
+      // Categories: Buah, Elektronik, Baju 
+      this.stock = stock
+    }
+  }
+
+  let date = new Date() // 1583983122810
+
+  let productData = [
+    new Product ('1583981053440', 'HM', 12000, 'Baju', 10),
+    new Product ('1583981075685', 'Jeruk', 7000, 'Buah', 10),
+    new Product ('1583981090582', 'Samsoeng', 30000, 'Elektronik', 10)
+  ]
+
+  let arrCart = []
+
+  const selector = (id) => {
+    return document.getElementById(id)
+  }
+
+  const renderCart = () => {
+    let hasil = ''
+    arrCart.forEach((val) => {
+      let { id, category, nama, harga, qty } = val
+      hasil += `
+        <tr>
+          <td>${id}</td>
+          <td>${category}</td>
+          <td>${nama}</td>
+          <td>${harga}</td>
+          <td>${qty}</td>
+          <td><input type="button" value="Delete" /></td>
+        </tr>
+      `
+    })
+
+    selector("cartTable").innerHTML = hasil
+  }
+
+  // Cart Actions
+  const addToCart = (id) => {
+    // alert('masuk')
+    let item = productData.find((val) => val.id == id)
+
+    let isInCart = arrCart.find((val) => val.id == item.id)
+
+    if (isInCart) {
+      let idx = arrCart.findIndex((val) => val.id == isInCart.id)
+
+      arrCart[idx].qty++
+    } else {
+      let newCartItem = {
+        ...item,
+        qty: 1
+      }
+
+      arrCart.push(newCartItem)
+    }
+
+    renderCart()
+  }
+
+  const renderProductList = (data = productData) => {
+    let hasil = ''
+    data.forEach((val) => {
+      let { id, harga, nama, category, stock } = val
+      hasil += `
+        <tr>
+          <td>${id}</td>
+          <td>${category}</td>
+          <td>${nama}</td>
+          <td>${harga}</td>
+          <td>${stock}</td>
+          <td><input type="button" onclick="addToCart(${id})" value="Buy"></td>
+          <td><input type="button" value="Delete"></td>
+          <td><input type="button" value="Edit"></td>
+        </tr>
+      `
+    })
+
+    selector("productListTable").innerHTML = hasil
+  }
+
+  renderProductList(productData)
+
+  const addProduct = () => {
+    let inputNama = selector("inputNama").value
+    let inputHarga = selector("inputHarga").value
+    let inputCategory = selector("inputCategory").value
+    let inputStock = selector("inputStock").value
+    let newItemId = new Date().getTime()
+
+    let newProduct = new Product(newItemId, inputNama, inputHarga, inputCategory, inputStock)
+
+    if (inputNama && inputHarga && inputStock && inputCategory) {
+      productData.push(newProduct)
+      alert('Data tertambah')
+      renderProductList(productData)
+
+      selector("inputNama").value = ''
+      selector("inputHarga").value = ''
+      selector("inputStock").value = ''
+    } else {
+      alert('Ada field kosong!')
+    }
+  }
+
+
+  
+</script>
+</html>

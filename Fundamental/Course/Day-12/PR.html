@@ -53,11 +53,16 @@
         <td>
           <select id="filterGender">
             <option disabled value="">Select Gender</option>
+            <option value="">All</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
         </td>
-        <td><input type="button" value="Search"></td>
+        <td>
+          <input type="number" id="filterMinUmur">
+          <input type="number" id="filterMaxUmur">
+        </td>
+        <td><input type="button" onclick="searchAndFilter()" value="Search"></td>
       </tr>
     </table>
   </center>
@@ -82,9 +87,9 @@
         'Bill', 'Accountant', 40, 'https://cdn4.iconfinder.com/data/icons/avatar-circle-1-1/72/91-512.png', 'Male', 'Biodata aku')
     ]
 
-    const renderData = () => {
+    const renderData = (arr = dataOrang) => {
       let hasil = ''
-      dataOrang.forEach(({ nama, pekerjaan, umur, pic, gender, bio}, index) => {
+      arr.forEach(({ nama, pekerjaan, umur, pic, gender, bio}, index) => {
         if (bio.length > 30) {
           bio = bio.slice(0, 30) + '...'
         }
@@ -103,12 +108,12 @@
       document.getElementById("mainData").innerHTML = hasil
     }
 
-    renderData()
+    renderData(dataOrang)
 
     const addData = () => {
       let inputNama = document.getElementById("inputNama").value
       let inputPekerjaan = document.getElementById('inputPekerjaan').value
-      let inputUmur = document.getElementById("inputUmur").value
+      let inputUmur = parseInt(document.getElementById("inputUmur").value)
       let inputPic = document.getElementById('inputPic').value
       let inputBio = document.getElementById('inputBio').value
       let inputGender
@@ -123,7 +128,7 @@
 
       if (inputNama && inputPekerjaan && inputUmur && inputPic && inputGender && inputBio) {
         dataOrang.push(newData)
-        renderData()
+        renderData(dataOrang)
         alert('Data ditambah')
 
         document.getElementById("emptyTable").innerHTML = ''
@@ -190,6 +195,37 @@
       let inputBio = document.getElementById("inputBio").value
 
       document.getElementById("wordCount").innerHTML = `${inputBio.length} / 30`
+    }
+
+    const searchAndFilter = () => {
+      let hasil = []
+      let filterNama = document.getElementById("filterNama").value
+      let filterPekerjaan = document.getElementById("filterPekerjaan").value
+      let filterGender = document.getElementById("filterGender").value
+      let filterMinUmur = document.getElementById("filterMinUmur").value
+      let filterMaxUmur = document.getElementById("filterMaxUmur").value
+
+      // if (filterMinUmur == NaN) {
+      //   filterMinUmur = 0
+      // }
+
+      if (!filterMaxUmur) {
+        filterMaxUmur = 999
+      }
+
+      dataOrang.forEach((val) => {
+        let { nama, gender, pekerjaan, umur } = val
+        if (nama.toLowerCase().startsWith(filterNama.toLowerCase()) && 
+        pekerjaan.toLowerCase().startsWith(filterPekerjaan.toLowerCase()) &&
+        gender.toLowerCase().startsWith(filterGender.toLowerCase()) &&
+        umur >= filterMinUmur && umur <= filterMaxUmur
+        ) {
+          // max >= umur >= min
+          hasil.push(val)
+        }
+      })
+
+      renderData(hasil)
     }
   </script>
 </body>
