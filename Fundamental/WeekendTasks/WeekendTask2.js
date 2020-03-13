@@ -13,8 +13,22 @@ const caesarCipher = (word, num) => {
     // Output: 'cde'
 
     // write your code here
+    let splitWord = word.split('')
+    let arrAlp = letters.split('')
+    let hasil = ''
+
+    for (let i = 0; i < splitWord.length; i++) {
+
+      while (num > 26) {
+        num -= 26
+      }
+
+      hasil += arrAlp[arrAlp.indexOf(splitWord[i]) + num]
+    }
+
+    return hasil
 }
-// console.log(caesarCipher('abc', 3))
+// console.log(caesarCipher('abc', 28))
 
 const plusMinus = (numArr) => {
   // Buat sebuah function yang menerima sebuah array of numbers
@@ -27,9 +41,34 @@ const plusMinus = (numArr) => {
 
   // Input: [1, 1, 1, 1, 1]
   // Output: 1 + 1 - 1 + 1 - 1 = 1
+
+  let result = numArr[0]
+  let operator = 'tambah'
+
+  // for (let i = 1; i < numArr.length; i++) {
+  //   if (operator == 'tambah') {
+  //     result = result + numArr[i]
+  //     operator = 'kurang'
+  //   } else if (operator == 'kurang') {
+  //     result = result - numArr[i]
+  //     operator = 'tambah'
+  //   }
+  // }
+
+  for (let i = 1; i < numArr.length; i++) {
+    if (i % 2 !== 0) {
+      result = result + numArr[i]
+    } else if (i % 2 == 0) {
+      result = result - numArr[i]
+    }
+  }
+
+  return result
 }
 
-const isPalindrome = () => {
+// console.log(plusMinus([1,2,3,4]))
+
+const isPalindrome = (word) => {
   // Buat sebuah function yang menerima sebuah string
   // Function ini akan mengecek apakah string ini sebuah palindrome
   
@@ -56,4 +95,31 @@ const isPalindrome = () => {
 
   // Input: 'hehe kocak'
   // Output: false
+
+  return word.toLowerCase().replace(/\s/gi, '').split('').reverse().join('') == word.toLowerCase().replace(/\s/gi, '')
 }
+
+
+mumble = (word) => {
+  var arr = word.split('')
+  var newArr = []
+
+  for(var i = 0; i < word.length; i++){
+      var upCase = arr[i].toUpperCase()
+      newArr.push(upCase)
+      for(k = 0; k < i; k++){
+          newArr.push(arr[i].toLowerCase())
+      }
+      if(i == word.length - 1){
+          break;
+      }
+      newArr.push('-')
+  }
+  return newArr.join('')
+}
+
+
+
+
+
+console.log(mumble('hello'))
