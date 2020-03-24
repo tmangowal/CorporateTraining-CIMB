@@ -1,5 +1,6 @@
 const tripleTrouble = (one, two, three) => {
-  // Buatlah sebuah function yang menerima 3 string
+  // Buatlah sebuah function yang menerima 3 string 
+  // dan setiap string memiliki panjang yang sama
   // Input: "aa", "bb", "cc"
   // Output: "abcabc"
 
@@ -17,4 +18,6 @@ const altCaps = (string) => {
 
   // Input: "abcdef"
   // Output: ["AbCdEf", "aBcDeF"]
+
+  // write your code here
 }

@@ -100,14 +100,16 @@
       </tbody>
     </table>
     <br>
-    <input type="button" value="Payment">
+    <input type="button" onclick="showTransactionDetails()" value="Payment">
   </fieldset>
 
   <!-- Transaction details -->
   <fieldset>
     <legend>Payment</legend>
     <h2>Transaction Details</h2>
-    
+    <div id="transaction">
+      
+    </div>
   </fieldset>
 </body>
 <script>
@@ -293,6 +295,56 @@
     })
 
     renderProductList(hasil)
+  }
+
+  // Payment
+  const showTransactionDetails = () => {
+    let result = ''
+    let totalCart = ''
+    let subTotal = 0
+    let pajak = 0
+    let totalPrice = 0
+    arrCart.forEach((val, index) => {
+      let { nama, harga, category, qty } = val
+      totalCart += `
+        <p>${category} | ${nama} | Rp ${harga} x ${qty} = Rp ${harga * qty}</p>
+      `
+      subTotal += harga * qty
+    })
+    selector('transaction').innerHTML = totalCart
+
+    selector('transaction').innerHTML += `
+      <h3>Sub Total: Rp ${subTotal}</h3>
+    `
+    pajak = subTotal / 100
+    selector('transaction').innerHTML += `
+      <h3>Pajak: Rp ${pajak}</h3>
+    `
+    totalPrice = subTotal + pajak
+    selector('transaction').innerHTML += `
+      <h3>Total Price: ${totalPrice}</h3>
+    `
+    selector('transaction').innerHTML += `
+      <input type="number" id="userPayment">
+      <input onclick="onUserPay(${totalPrice})" type="button" value="Pay">
+    `
+  }
+
+  const onUserPay = (totalPrice) => {
+    let userInput = selector('userPayment').value
+    if (totalPrice > userInput) {
+      alert('Uang anda kurang Rp ' + (totalPrice - userInput))
+    } else if (totalPrice < userInput) {
+      alert(`Kembalian anda adalah Rp ${userInput - totalPrice}`)
+      arrCart = []
+      renderCart()
+      selector('transaction').innerHTML = ''
+    } else if (totalPrice == userInput) {
+      alert('Uang anda pas!')
+      arrCart = []
+      renderCart()
+      selector('transaction').innerHTML = ''
+    }
   }
 </script>
 </html>
