@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Hello World!</h1>
+  <h3 id="interval">test</h3>
+  <input type="button" value="Stop" onclick="stopTimer()">
+  <script>
+    let x = 0
+    let varInterval = setInterval(() => {
+      if (x == 2) {
+        clearInterval(varInterval)
+      }
+      document.getElementById('interval').innerHTML = x
+      x++
+    }, 1000)
+    
+    stopTimer = () => {
+      clearInterval(varInterval)
+    }
+
+    // Waktu bayar sisa 30 detik
+    // 0 detik -> alert 'waktu habis!' -> clear cart
+  </script>
+</body>
+</html>

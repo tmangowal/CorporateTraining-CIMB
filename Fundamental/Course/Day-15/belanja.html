@@ -107,6 +107,9 @@
   <fieldset>
     <legend>Payment</legend>
     <h2>Transaction Details</h2>
+    <div id="timer">
+
+    </div>
     <div id="transaction">
       
     </div>
@@ -328,6 +331,8 @@
       <input type="number" id="userPayment">
       <input onclick="onUserPay(${totalPrice})" type="button" value="Pay">
     `
+
+    startTimer()
   }
 
   const onUserPay = (totalPrice) => {
@@ -339,12 +344,36 @@
       arrCart = []
       renderCart()
       selector('transaction').innerHTML = ''
+      clearInterval(timer)
+      document.getElementById('timer').innerHTML = ''
     } else if (totalPrice == userInput) {
       alert('Uang anda pas!')
       arrCart = []
       renderCart()
       selector('transaction').innerHTML = ''
+      clearInterval(timer)
+      document.getElementById('timer').innerHTML = ''
     }
+  }
+
+  let timer
+
+  startTimer = () => {
+    let timeLimit = 30
+    document.getElementById('timer').innerHTML = `Waktu anda sisa ${timeLimit} detik`
+    timer = setInterval(() => {
+      timeLimit--
+      document.getElementById('timer').innerHTML = `Waktu anda sisa ${timeLimit} detik`
+
+      if (timeLimit == 0) {
+        alert('Waktu anda habis!')
+        arrCart = []
+        renderCart()
+        selector('transaction').innerHTML = ''
+        document.getElementById('timer').innerHTML = ''
+        clearInterval(timer)
+      }
+    }, 1000)
   }
 </script>
 </html>
