@@ -1,0 +1,76 @@
+table,
+tr,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+thead {
+  color: blue;
+}
+
+.text-green {
+  color: green;
+}
+
+.text-gray {
+  color: gray;
+}
+
+.text-yellow {
+  color: yellow;
+}
+
+.text-blue {
+  color: blue;
+}
+
+.container {
+  border: 1px solid red;
+  margin-top: 15px;
+  width: fit-content;
+  padding: 8px 32px;
+}
+
+#jeff {
+  color: red;
+}
+
+.rounded {
+  border-radius: 8px 0px;
+}
+
+.btn {
+  padding: 8px;
+  border-radius: 8px;
+  color: white;
+  transition: background-color ease-in-out 250ms, color ease-in-out 250ms;
+  border: 0px;
+}
+
+/* pseudo selector */
+.btn:hover {
+  cursor: pointer;
+  color: black;
+  background-color: white;
+  transition: background-color ease-in-out 250ms, color ease-in-out 250ms;
+}
+
+.btn-pill {
+  border-radius: 16px;
+}
+
+.btn-dark {
+  background-color: black;
+  border: 1px solid black;
+}
+
+.btn-blue {
+  background-color: blue;
+  border: 1px solid blue;
+}
+
+.btn-red {
+  background-color: red;
+  border: 1px solid red;
+}
