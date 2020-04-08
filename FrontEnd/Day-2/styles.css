@@ -1,0 +1,112 @@
+.box {
+  height: 50px;
+  width: 50px;
+  background-color: grey;
+  border: 1px solid black;
+  display: inline-block;
+  /* margin-left: 20px; */
+}
+
+.container-space-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+.container-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-start {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.container1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container2 {
+  display: flex;
+}
+
+.container-height {
+  display: flex;
+  height: 300px;
+  border: 1px solid red;
+  justify-content: flex-start; /* Mengikuti main axis */
+  align-items: center; /* Mengikuti cross axis */
+  flex-direction: column;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.navbar-item {
+  padding: 5px;
+}
+
+.image-brand {
+  width: 50px;
+  height: 50px;
+}
+
+#blue {
+  color: blue;
+}
+
+.specificity {
+  text-align: center;
+  color: red;
+}
+
+table,
+tr,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.table {
+  background-color: red;
+}
+
+thead {
+  background-color: green;
+}
+
+.my-input {
+  font-size: 16px;
+  padding: 12px;
+  border: 1px solid lightgrey;
+  border-radius: 32px;
+}
+
+.my-input:hover {
+  -webkit-box-shadow: 0px 0px 11px 2px rgba(191, 191, 191, 1);
+  -moz-box-shadow: 0px 0px 11px 2px rgba(191, 191, 191, 1);
+  box-shadow: 0px 0px 11px 2px rgba(191, 191, 191, 1);
+  border: 0;
+}
+
+.my-btn {
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  border: 1px solid rgba(204, 204, 204, 0.63);
+  background-color: rgb(243, 243, 243);
+  /* padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px; */
+}
+
+.my-btn:hover {
+  cursor: pointer;
+  border: 1px solid rgb(175, 175, 175);
+}
